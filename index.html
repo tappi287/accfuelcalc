@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fuel Calculator beta - Assetto Corsa Competizione</title>
+    <script src="js/main.js"></script>
+    <script type="text/javascript">
+        var m = main ()
+    </script>
+    <link rel="stylesheet" href="res/style.css">
+    <link rel="icon" href="res/favicon.ico">
+    <link rel="icon" type="image/png" href="res/icon.png">
+<body>
+    <div class="title"><h2>ACC - Fuel Calc <i>beta</i></h2></div>
+    <p class="desc">Enter your average lap time and fuel consumption or choose from one of the track presets.</p>
+
+    <form action="/" novalidate>
+        <section>
+            <h3>Track Preset</h3>
+            <select id="Track" name="Track">
+                <option value="1:45:150" fuel="3.4">Barcelona</option>
+                <option value="1:24:250">Brands Hatch</option>
+                <option value="1:43:450">Hungaroring</option>
+                <option value="1:43:000">Kyalami</option>
+                <option value="9:99:999">Laguna Seca</option>
+                <option value="1:34:073">Misano</option>
+                <option value="2:06:675">Monza</option>
+                <option value="2:02:577">Mount Panorama</option>
+                <option value="1:54:896">Nürburgring</option>
+                <option value="1:53:491">Paul Ricard</option>
+                <option value="1:59:642">Silverstone</option>
+                <option value="2:20:058">Spa-Francorchamps</option>
+                <option value="2:01:995">Suzuka</option>
+                <option value="1:36:011">Zandvoort</option>
+                <option value="1:30:312">Zolder</option>
+            </select>
+        </section>
+        <section>
+            <h3>Average lap time</h3>
+            <div class="horizontal">
+                <label>
+                    <input class="min" name="lap_min" type="number" min="0" max="9" value="1" title="Minute" />
+                    :
+                    <input class="sec" name="lap_sec" type="number" min="0" max="59" value="45" title="Seconds" />
+                    :
+                    <input class="tho" name="lap_tho" type="number" min="0" max="999" value="150" title="Milliseconds" />
+                </label>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Average fuel consumption per lap</h3>
+            <div class="horizontal">
+                <label>
+                    <input class="tho" name="fuel" type="number" min="0.0" max="9.9" step="0.1" value="3.4">
+                    litres
+                </label>
+            </div>
+        </section>
+
+        <section>
+            <div class="horizontal">
+                <span>Race Duration</span>
+                <label>
+                    <input class="sec" name="race_hour" type="number" min="0" max="24" value="01" title="Hours" />
+                    h
+                    <input class="sec" name="race_min" type="number" min="0" max="59" value="30" title="Minutes" />
+                    m
+                </label>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="horizontal">
+                <span>Out/In laps</span>
+                <label>
+                    <input class="sec" name="laps" type="number" min="0" max="9" value="0">
+                    laps
+                </label>
+            </div>
+        </section>
+
+        <section>
+            <h3>Results</h3>
+            <div class="results">
+                <p id="custom_result"></p>
+                <ul id="result_ls"></ul>
+            </div>
+        </section>
+    </form>
+</body>
