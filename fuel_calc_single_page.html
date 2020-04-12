@@ -1,0 +1,268 @@
+<!-- Auto generated single file self-contained html page -->
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fuel Calculator beta - Assetto Corsa Competizione</title>
+    <script type="text/javascript">
+'use_strict'
+
+function main () {
+  function ClearChildElements (parent) {
+    /* Helper method to clear all child elements of a given parent */
+    var child = parent.lastElementChild
+    while (child) {
+      parent.removeChild(child)
+      child = parent.lastElementChild
+    }
+  }
+
+  function CalculateFuel (lapTime, duration, fuel, extraLaps) {
+    /* Simple fuel estimation by number of laps for given fuel consumption per lap */
+    const laps = Math.ceil((duration * 60) / lapTime) + extraLaps
+    const fuelAmount = Math.round(laps * fuel)
+    return [fuelAmount, laps]
+  }
+
+  function UpdateResult () {
+    /* Get race duration */
+    const raceHour = parseInt(document.getElementsByName('race_hour')[0].value) * 60
+    const raceMin = parseInt(document.getElementsByName('race_min')[0].value)
+    const raceDuration = raceHour + raceMin
+
+    /* Get lap time */
+    const lapMin = parseInt(document.getElementsByName('lap_min')[0].value) * 60
+    const lapSec = parseInt(document.getElementsByName('lap_sec')[0].value)
+    const lapTho = parseInt(document.getElementsByName('lap_tho')[0].value) / 1000
+    const lapTime = lapMin + lapSec + lapTho
+
+    /* Get fuel consumtion per lap */
+    const fuelConsumption = parseFloat(document.getElementsByName('fuel')[0].value)
+
+    /* Get extra laps */
+    const laps = parseInt(document.getElementsByName('laps')[0].value)
+
+    DisplayResult(raceDuration, lapTime, fuelConsumption, laps)
+  }
+
+  function DisplayResult (userDuration, lapTime, fuelConsumption, laps) {
+    const durations = [5, 10, 15, 20, 25, 30, 60]
+    const resultList = document.getElementById('result_ls')
+
+    /* Clear Result List */
+    ClearChildElements(resultList)
+
+    /* Update user result */
+    const r = document.getElementById('custom_result')
+    const f = CalculateFuel(lapTime, userDuration, fuelConsumption, laps)
+    r.innerHTML = String(userDuration).padStart(3, '0') + ' mins - <b>' + String(f[0]).padStart(3, '0') + ' l</b> - ' + f[1] + ' laps'
+
+    durations.forEach(duration => {
+      const r = document.createElement('li')
+      const f = CalculateFuel(lapTime, duration, fuelConsumption, laps)
+      r.innerHTML = String(duration).padStart(3, '0') + ' mins - <b>' + String(f[0]).padStart(3, '0') + ' l</b> - ' + f[1] + ' laps'
+      resultList.appendChild(r)
+    })
+  }
+
+  function TrackSelect () {
+    const track = document.getElementsByName('Track')[0]
+    const lapMin = document.getElementsByName('lap_min')[0]
+    const lapSec = document.getElementsByName('lap_sec')[0]
+    const lapTho = document.getElementsByName('lap_tho')[0]
+
+    track.addEventListener('change', function (event) {
+      const v = event.target.value.split(':')
+
+      /* Lookup fuel attribute in selected option element if present */
+      const option = event.target.item(event.target.selectedIndex)
+      const fuelValue = parseFloat(option.getAttribute('fuel'))
+
+      /* Update fuel consumption if this track option entry has data for it */
+      if (isNaN(fuelValue) === false) {
+        document.getElementsByName('fuel')[0].value = fuelValue
+      }
+
+      /* Update estimated lap time */
+      lapMin.value = v[0]
+      lapSec.value = v[1]
+      lapTho.value = v[2]
+      UpdateResult()
+    })
+  }
+
+  function InitUpdates () {
+    /* Add change event isteners to every input element */
+    const updateElements = [].slice.call(document.getElementsByTagName('input'))
+
+    updateElements.forEach(inputElement => {
+      inputElement.addEventListener('change', function (event) {
+        UpdateResult()
+      })
+    })
+  }
+
+  document.onreadystatechange = function () {
+    if (document.readyState === 'complete') {
+      TrackSelect() /* add track selection lap time convenience */
+      InitUpdates() /* update result on any input */
+      UpdateResult()
+      console.log('Document ready.')
+    }
+  }
+};
+
+const fake = 'PassJStandardParse'
+if (fake === null) {
+  main()
+}
+        var m = main ()
+    </script>
+<style type="text/css">
+html {
+    background: rgb(24,24,24);
+    background: linear-gradient(0deg, rgba(24,24,24,1) 0%, rgba(24,18,18,1) 95%, rgba(24,24,24,1) 100%);
+    color: #dadada;
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    font-size: calc(16px + 0.5vw);
+}
+input, select, label, option {
+    font-size: calc(18px + 0.4vw);
+}
+@media screen and (min-width: 1200px) {
+    html {
+        font-size: 18px;
+    }
+    input, select, label, option {
+        font-size: 16px;
+    }
+    input.min {width: 6vw; max-width: 36px;}
+    input.sec {width: 7vw; max-width: 42px;}
+    input.tho {width: 10vw; max-width: 56px;}
+}
+body {
+    width: 96%;
+    margin: auto 2%;
+    padding-top: 0.4%;
+}
+h2 {
+    font-weight: 800;
+    font-size: 1.3em;
+    margin: 0 0 5px 0;
+}
+h3 {
+    font-weight: 600;
+    font-size: 1.0em;
+    margin: 0 0 5px 0;
+}
+section {
+    margin: 20px 0 5px 0;
+}
+p.desc {
+    margin: 2px 0; padding: 0;
+    font-size: 0.8em;
+}
+.horizontal {
+    display: inline-block;
+    margin: 2px 0; padding: 0;
+    height: 24px;
+}
+#result_ls {
+    list-style-type: none;
+    color: #707070;
+    margin: 0; padding: 0;
+}
+footer {
+    font-size: 0.8em;
+    margin-top: 20px;
+}
+footer a {
+    color: #707070;
+}
+.results {
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+}
+input, select {background-color: whitesmoke; color: black;}
+</style></head>
+
+<body>
+    <div class="title"><h2>ACC - Fuel Calc <i>beta</i></h2></div>
+    <p class="desc">Enter your average lap time and fuel consumption or choose from one of the track presets.</p>
+
+    <form action="/" novalidate>
+        <section>
+            <h3>Track Preset</h3>
+            <select id="Track" name="Track">
+                <option value="1:45:150" fuel="3.2">Barcelona</option>
+                <option value="1:24:250">Brands Hatch</option>
+                <option value="1:43:450">Hungaroring</option>
+                <option value="1:43:000">Kyalami</option>
+                <option value="9:99:999">Laguna Seca</option>
+                <option value="1:34:073">Misano</option>
+                <option value="2:06:675">Monza</option>
+                <option value="2:02:577">Mount Panorama</option>
+                <option value="1:54:896" fuel="3.3">Nürburgring</option>
+                <option value="1:53:491">Paul Ricard</option>
+                <option value="1:59:642">Silverstone</option>
+                <option value="2:20:058">Spa-Francorchamps</option>
+                <option value="2:01:995">Suzuka</option>
+                <option value="1:36:011">Zandvoort</option>
+                <option value="1:30:312">Zolder</option>
+            </select>
+        </section>
+        <section>
+            <h3>Average lap time</h3>
+            <div class="horizontal">
+                <label>
+                    <input class="min" name="lap_min" type="number" min="0" max="9" value="1" title="Minutes" />
+                    :
+                    <input class="sec" name="lap_sec" type="number" min="0" max="59" value="45" title="Seconds" />
+                    :
+                    <input class="tho" name="lap_tho" type="number" min="0" max="999" value="150" title="Milliseconds" />
+                </label>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Average fuel consumption per lap</h3>
+            <div class="horizontal">
+                <label>
+                    <input class="tho" name="fuel" type="number" min="0.0" max="9.9" step="0.1" value="3.4">
+                    litres
+                </label>
+            </div>
+        </section>
+
+        <section>
+            <div class="horizontal">
+                <span>Race Duration</span>
+                <label>
+                    <input class="sec" name="race_hour" type="number" min="0" max="24" value="01" title="Hours" />
+                    h
+                    <input class="sec" name="race_min" type="number" min="0" max="59" value="30" title="Minutes" />
+                    m
+                </label>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="horizontal">
+                <span>Out/In laps</span>
+                <label>
+                    <input class="sec" name="laps" type="number" min="0" max="9" value="0" title="Laps" />
+                    laps
+                </label>
+            </div>
+        </section>
+
+        <section>
+            <h3>Results</h3>
+            <div class="results">
+                <p id="custom_result"></p>
+                <ul id="result_ls"></ul>
+            </div>
+        </section>
+    </form>
+    <footer><a href="https://github.com/tappi287/accfuelcalc">accfuelcalc on Github</a></footer>
+</body>
