@@ -18,7 +18,7 @@
         <section>
             <h3>Track Preset</h3>
             <select id="Track" name="Track">
-                <option value="1:45:150" fuel="3.4">Barcelona</option>
+                <option value="1:45:150" fuel="3.2">Barcelona</option>
                 <option value="1:24:250">Brands Hatch</option>
                 <option value="1:43:450">Hungaroring</option>
                 <option value="1:43:000">Kyalami</option>
@@ -26,7 +26,7 @@
                 <option value="1:34:073">Misano</option>
                 <option value="2:06:675">Monza</option>
                 <option value="2:02:577">Mount Panorama</option>
-                <option value="1:54:896">Nürburgring</option>
+                <option value="1:54:896" fuel="3.3">Nürburgring</option>
                 <option value="1:53:491">Paul Ricard</option>
                 <option value="1:59:642">Silverstone</option>
                 <option value="2:20:058">Spa-Francorchamps</option>
@@ -39,7 +39,7 @@
             <h3>Average lap time</h3>
             <div class="horizontal">
                 <label>
-                    <input class="min" name="lap_min" type="number" min="0" max="9" value="1" title="Minute" />
+                    <input class="min" name="lap_min" type="number" min="0" max="9" value="1" title="Minutes" />
                     :
                     <input class="sec" name="lap_sec" type="number" min="0" max="59" value="45" title="Seconds" />
                     :
@@ -75,7 +75,7 @@
             <div class="horizontal">
                 <span>Out/In laps</span>
                 <label>
-                    <input class="sec" name="laps" type="number" min="0" max="9" value="0">
+                    <input class="sec" name="laps" type="number" min="0" max="9" value="0" title="Laps" />
                     laps
                 </label>
             </div>
@@ -89,4 +89,5 @@
             </div>
         </section>
     </form>
+    <footer><a href="https://github.com/tappi287/accfuelcalc">accfuelcalc on Github</a></footer>
 </body>
