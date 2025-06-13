@@ -2,8 +2,13 @@ services:
   acc:
     image: lipanski/docker-static-website:latest
     restart: always
-    ports:
-      - "3000:3000"
     volumes:
       - ./:/home/static
       - ./httpd.conf:/home/static/httpd.conf:ro
+    # Point to your reverse proxy network
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
