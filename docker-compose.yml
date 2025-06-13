@@ -5,5 +5,5 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - $(pwd):/home/static
+      - ./:/home/static
       - ./httpd.conf:/home/static/httpd.conf:ro
