@@ -1,0 +1,9 @@
+services:
+  acc:
+    image: lipanski/docker-static-website:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - $(pwd):/home/static
+      - ./httpd.conf:/home/static/httpd.conf:ro
